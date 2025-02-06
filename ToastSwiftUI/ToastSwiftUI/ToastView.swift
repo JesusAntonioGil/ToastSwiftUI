@@ -9,8 +9,8 @@ import SwiftUI
 
     
 struct ToastView: View {
-    let type: ToastType
-    let onTapClose: () -> Void
+    private let type: ToastType
+    private let onTapClose: () -> Void
     
     @State private var offsetY: CGFloat = .zero
     @State private var contectHeight: CGFloat = .zero
@@ -34,6 +34,12 @@ struct ToastView: View {
             }
     }
     
+    
+    
+    init(type: ToastType, onTapClose: @escaping () -> Void) {
+        self.type = type
+        self.onTapClose = onTapClose
+    }
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -98,7 +104,7 @@ struct ToastView: View {
     
     VStack {
         if isShowing {
-            ToastView(type: .success, onTapClose: {
+            ToastView(type: .error, onTapClose: {
                 withAnimation(.smooth(duration: 0.4, extraBounce: 0.25)) {
                     isShowing.toggle()
                 }
